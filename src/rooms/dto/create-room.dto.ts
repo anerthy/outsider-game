@@ -2,11 +2,11 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class CreateRoomDto {
   @IsString()
-  @IsOptional()
-  name: string;
+  code: string;
 
   @IsString()
-  code: string;
+  @IsOptional()
+  name: string;
 
   @IsString()
   owner: string;

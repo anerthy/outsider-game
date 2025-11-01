@@ -1,7 +1,10 @@
 export class Room {
   id: string;
-  name: string;
   code: string;
+  name: string;
   owner: string;
-  players?: string[];
+  players: string[];
+  // maxPlayers: number;
+  game?: string;
+  createdAt: Date;
 }
