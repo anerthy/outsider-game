@@ -41,6 +41,11 @@ export class RoomsController {
     return this.roomsService.addPlayer(id, playerDto);
   }
 
+  @Delete(':id/players/:name')
+  removePlayer(@Param('id') id: string, @Param('name') name: string) {
+    return this.roomsService.removePlayer(id, name);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.roomsService.remove(id);
