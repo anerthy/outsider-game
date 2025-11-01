@@ -10,6 +10,8 @@ import {
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { CreateGameDto } from 'src/games/dto/create-game.dto';
+import { Words } from 'src/games/interfaces/words';
 
 @Controller('rooms')
 export class RoomsController {
@@ -23,6 +25,14 @@ export class RoomsController {
   @Get()
   findAll() {
     return this.roomsService.findAll();
+  }
+
+  @Post(':gameId/start')
+  start(
+    @Param('gameId') gameId: string,
+    @Body() createGameDto: CreateGameDto,
+  ): Promise<Words> {
+    return this.roomsService.start(gameId, createGameDto);
   }
 
   @Get(':id')
