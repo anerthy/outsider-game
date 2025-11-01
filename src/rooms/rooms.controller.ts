@@ -10,6 +10,7 @@ import {
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { CreatePlayerDto } from './dto/create-player.dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -35,10 +36,10 @@ export class RoomsController {
     return this.roomsService.update(id, updateRoomDto);
   }
 
-  // @Post(':id/players')
-  // addPlayer(@Param('id') id: string, @Body() playerDto: CreatePlayerDto) {
-  //   return this.roomsService.addPlayer(id, playerDto);
-  // }
+  @Post(':id/players')
+  addPlayer(@Param('id') id: string, @Body() playerDto: CreatePlayerDto) {
+    return this.roomsService.addPlayer(id, playerDto);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
