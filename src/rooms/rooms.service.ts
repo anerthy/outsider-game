@@ -4,6 +4,7 @@ import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { BasicMessage } from './interfaces/BasicMessage';
 import { CreateGameDto } from 'src/games/dto/create-game.dto';
+import { ConfigService } from '@nestjs/config';
 
 const SYSTEM_INSTRUCTION = (
   theme: string,
@@ -35,9 +36,17 @@ El resultado debe tener el siguiente formato JSON:
 
 @Injectable()
 export class RoomsService {
-  private readonly ai = new GoogleGenAI({
-    apiKey: 'AIzaSyCrI071lj2KyJucQJaTqz9CWiyDZZBZAyQ',
-  });
+  private readonly ai: GoogleGenAI;
+
+  constructor(private readonly configService: ConfigService) {
+    const apiKey = this.configService.get<string>('GEMINI_API_KEY');
+
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY is not defined in environment variables');
+    }
+
+    this.ai = new GoogleGenAI({ apiKey });
+  }
 
   private chatHistory = new Map<string, BasicMessage[]>();
 
