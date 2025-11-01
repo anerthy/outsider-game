@@ -10,8 +10,6 @@ import {
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
-import { CreateGameDto } from 'src/games/dto/create-game.dto';
-import { Words } from 'src/games/interfaces/words';
 
 @Controller('rooms')
 export class RoomsController {
@@ -27,26 +25,23 @@ export class RoomsController {
     return this.roomsService.findAll();
   }
 
-  @Post(':gameId/start')
-  start(
-    @Param('gameId') gameId: string,
-    @Body() createGameDto: CreateGameDto,
-  ): Promise<Words> {
-    return this.roomsService.start(gameId, createGameDto);
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.roomsService.findOne(+id);
+    return this.roomsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRoomDto: UpdateRoomDto) {
-    return this.roomsService.update(+id, updateRoomDto);
+    return this.roomsService.update(id, updateRoomDto);
   }
+
+  // @Post(':id/players')
+  // addPlayer(@Param('id') id: string, @Body() playerDto: CreatePlayerDto) {
+  //   return this.roomsService.addPlayer(id, playerDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.roomsService.remove(+id);
+    return this.roomsService.remove(id);
   }
 }
