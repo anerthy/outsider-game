@@ -68,6 +68,16 @@ export class RoomsService {
     room.players.push(name);
   }
 
+  removePlayer(roomId: string, playerName: string) {
+    const room = this.findOne(roomId);
+
+    if (!room.players.includes(playerName)) {
+      throw new BadRequestException(`Player ${playerName} not found in room`);
+    }
+
+    room.players = room.players.filter((name) => name !== playerName);
+  }
+
   remove(id: string) {
     const room = this.findOne(id);
     this.rooms = this.rooms.filter((r) => r.id !== room.id);
