@@ -1,24 +1,37 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+} from 'class-validator';
 
 export class CreateGameDto {
-  // @IsArray()
-  // @IsNotEmpty()
-  // players: string[];
+  @IsString()
+  roomId: string;
 
   @IsString()
-  @IsNotEmpty()
-  theme: string;
+  @IsOptional()
+  mode: string = 'classic';
 
   @IsString()
-  @IsNotEmpty()
+  category: string;
+
+  @IsString()
+  @IsOptional()
+  difficulty: string = 'normal';
+
+  @IsString()
   language: string;
 
   @IsString()
-  @IsNotEmpty()
-  vocabulary: string;
+  @IsOptional()
+  vocabularyCountry: string;
 
-  @IsNotEmpty()
+  @IsBoolean()
+  includeHint: boolean = true;
+
   @IsNumber()
   @Min(1)
-  outsiders: number;
+  outsidersCount: number = 1;
 }
