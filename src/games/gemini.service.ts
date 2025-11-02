@@ -1,9 +1,8 @@
 import { GoogleGenAI } from '@google/genai';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { BasicMessage } from 'src/games/interfaces/basic-message';
-import { WordCard } from './interfaces/word-card.interface';
-import { CreateWordCardDto } from './dto/create-word-card.dto';
+import { CreateTopicGameDto } from './dto/create-topic.game.dto';
+import { BasicMessage, TopicGame } from './interfaces';
 
 const SYSTEM_INSTRUCTION = (
   category: string,
@@ -48,11 +47,11 @@ export class GeminiService {
     this.ai = new GoogleGenAI({ apiKey });
   }
 
-  async generateGameWordCard(
-    createWordCardDto: CreateWordCardDto,
-  ): Promise<WordCard> {
+  async generateTopicGame(
+    createTopicGameDto: CreateTopicGameDto,
+  ): Promise<TopicGame> {
     const { roomId, category, language, vocabularyCountry, hintsCount } =
-      createWordCardDto;
+      createTopicGameDto;
 
     const history = this.chatHistory.get(roomId) || [];
 
@@ -94,8 +93,8 @@ export class GeminiService {
 
     this.chatHistory.set(roomId, history);
 
-    const wordCard = JSON.parse(response.text || '{}') as WordCard;
-    console.log('Generated WordCard:', wordCard.word);
-    return wordCard;
+    const topicGame = JSON.parse(response.text || '{}') as TopicGame;
+    console.log('Generated TopicGame:', topicGame.word);
+    return topicGame;
   }
 }
