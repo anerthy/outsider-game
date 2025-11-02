@@ -8,9 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
-import { CreateRoomDto } from './dto/create-room.dto';
-import { UpdateRoomDto } from './dto/update-room.dto';
-import { CreatePlayerDto } from './dto/create-player.dto';
+import { CreateRoomDto, UpdateRoomDto, CreatePlayerDto } from './dto';
 
 @Controller('rooms')
 export class RoomsController {
@@ -45,6 +43,11 @@ export class RoomsController {
   removePlayer(@Param('id') id: string, @Param('name') name: string) {
     return this.roomsService.removePlayer(id, name);
   }
+
+  // @Patch(':id/games')
+  // createGame(@Param('id') id: string, @Body() createGameDto: CreateGameDto) {
+  //   return this.roomsService.createGame(id, createGameDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
