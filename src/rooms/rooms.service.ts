@@ -3,17 +3,22 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { GoogleGenAI } from '@google/genai';
-import { Room } from './entities/room.entity';
 import { v4 as uuid } from 'uuid';
-import { CreateRoomDto } from './dto/create-room.dto';
-import { UpdateRoomDto } from './dto/update-room.dto';
-import { CreatePlayerDto } from './dto/create-player.dto';
+import { Room } from './entities/room.entity';
+import { CreatePlayerDto, CreateRoomDto, UpdateRoomDto } from './dto';
 
 @Injectable()
 export class RoomsService {
-  private readonly ai: GoogleGenAI;
-  private rooms: Room[] = [];
+  private rooms: Room[] = [
+    {
+      id: '2ede74e9-915a-4fa9-bc0c-db1b4ecf1165',
+      name: 'Fun Room',
+      code: 'ABC123',
+      owner: 'andres',
+      players: ['andres', 'rosi', 'julian', 'fernando', 'capis'],
+      createdAt: new Date(),
+    },
+  ];
 
   findAll() {
     return this.rooms;
